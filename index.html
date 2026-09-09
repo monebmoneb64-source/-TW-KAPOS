@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TW-KAPOS | موقعي الشخصي</title>
+  <title>TW-KAPOS</title>
 
   <style>
     * {
@@ -14,49 +14,51 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top, #3b0000, #160000 30%, #050505 70%);
+      background:
+        radial-gradient(circle at top, #450000, #120000 35%, #030303 75%);
       color: white;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      padding: 25px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      margin: auto;
     }
 
     .card {
-      width: 100%;
-      max-width: 720px;
-      text-align: center;
-      background: rgba(10, 10, 10, 0.95);
-      border: 2px solid #e00000;
+      background: rgba(8, 8, 8, .96);
+      border: 2px solid #d00000;
       border-radius: 28px;
-      padding: 42px 28px;
-      box-shadow: 0 0 30px rgba(255, 0, 0, .25);
+      padding: 35px 25px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(255, 0, 0, .25);
     }
 
-    .avatar {
-      width: 105px;
-      height: 105px;
-      margin: auto auto 20px;
+    .logo {
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 20px;
       border-radius: 50%;
       display: grid;
       place-items: center;
-      font-size: 34px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #ff0000, #700000);
-      border: 3px solid #ff1a1a;
+      font-size: 35px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff0000, #650000);
+      border: 3px solid #ff2222;
     }
 
     h1 {
-      font-size: 42px;
+      font-size: 45px;
       margin-bottom: 8px;
     }
 
     .tag {
-      color: #ff2222;
-      font-size: 18px;
-      margin-bottom: 18px;
+      color: #ff2020;
       font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 20px;
     }
 
     p {
@@ -65,33 +67,45 @@
       font-size: 17px;
     }
 
+    .login-btn,
+    .logout-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 15px;
+      margin-top: 22px;
+      background: linear-gradient(135deg, #ff0000, #8c0000);
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .logout-btn {
+      background: #171717;
+      border: 1px solid #b00000;
+    }
+
     .wallet {
-      margin: 28px auto 8px;
-      padding: 20px;
-      background: linear-gradient(145deg, #171717, #080808);
+      margin-top: 25px;
+      padding: 25px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #181818, #070707);
       border: 1px solid #8d6200;
-      border-radius: 20px;
     }
 
     .coin {
-      width: 78px;
-      height: 78px;
-      margin: 0 auto 12px;
+      width: 80px;
+      height: 80px;
+      margin: auto auto 12px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       font-size: 38px;
       font-weight: 900;
-      color: #ffd84a;
-      background: radial-gradient(
-        circle at 30% 25%,
-        #fff2a6,
-        #ffd700 28%,
-        #d49b00 65%,
-        #8a5b00
-      );
+      color: #ffd700;
+      background: radial-gradient(circle, #fff2a6, #ffd700 35%, #9a6500);
       border: 4px solid #ffe27a;
-      box-shadow: inset 0 0 0 4px #b87900;
     }
 
     .balance-label {
@@ -101,32 +115,73 @@
 
     .balance {
       color: #ffd700;
-      font-size: 30px;
+      font-size: 32px;
       font-weight: 900;
-      margin-top: 4px;
+      margin-top: 5px;
     }
 
-    .earn-btn {
-      margin-top: 14px;
+    .user {
+      margin-top: 18px;
+      color: #aaa;
+    }
+
+    .auth-box {
+      display: none;
+      margin-top: 25px;
+      padding: 25px;
+      background: #101010;
+      border: 1px solid #700000;
+      border-radius: 20px;
+    }
+
+    .auth-box h2 {
+      margin-bottom: 18px;
+    }
+
+    input {
       width: 100%;
-      border: 0;
-      border-radius: 13px;
       padding: 14px;
-      background: linear-gradient(135deg, #ff0000, #9d0000);
+      margin: 7px 0;
+      border-radius: 12px;
+      border: 1px solid #555;
+      background: #050505;
       color: white;
       font-size: 16px;
+      direction: ltr;
+    }
+
+    .auth-action {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border: 0;
+      border-radius: 12px;
+      background: #d00000;
+      color: white;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .switch {
+      margin-top: 15px;
+      color: #ff3030;
+      cursor: pointer;
+    }
+
+    .message {
+      margin-top: 12px;
+      color: #ff7777;
+      min-height: 20px;
     }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-top: 22px;
+      margin-top: 25px;
     }
 
-    a {
+    .buttons a {
       text-decoration: none;
       color: white;
       padding: 15px;
@@ -136,13 +191,9 @@
       font-weight: bold;
     }
 
-    a:hover {
-      background: #c00000;
-    }
-
     .footer {
-      margin-top: 28px;
-      color: #888;
+      margin-top: 25px;
+      color: #777;
       font-size: 14px;
     }
 
@@ -160,9 +211,11 @@
 
 <body>
 
+<div class="container">
+
   <main class="card">
 
-    <div class="avatar">TW</div>
+    <div class="logo">TW</div>
 
     <h1>TW-KAPOS</h1>
 
@@ -170,23 +223,59 @@
 
     <p>
       أهلاً بيك في موقعي 👋<br>
-      هنا تقدر تعرفني أكثر وتلقى روابط حساباتي ومشاريعي.
+      سجّل دخولك باش تشوف حسابك ورصيد العملات الافتراضية.
     </p>
 
-    <section class="wallet">
+    <button class="login-btn" id="openLogin">
+      🔐 تسجيل الدخول
+    </button>
+
+    <section class="auth-box" id="authBox">
+
+      <h2 id="authTitle">تسجيل الدخول</h2>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="البريد الإلكتروني"
+      >
+
+      <input
+        type="password"
+        id="password"
+        placeholder="كلمة المرور"
+      >
+
+      <button class="auth-action" id="authButton">
+        دخول
+      </button>
+
+      <div class="switch" id="switchMode">
+        إنشاء حساب جديد
+      </div>
+
+      <div class="message" id="message"></div>
+
+    </section>
+
+    <section class="wallet" id="wallet" style="display:none;">
 
       <div class="coin">$</div>
 
       <div class="balance-label">
-        رصيد العملات
+        رصيد العملات الافتراضية
       </div>
 
       <div class="balance">
-        <span id="coins">100</span> 🪙
+        <span id="coins">0</span> 🪙
       </div>
 
-      <button class="earn-btn" onclick="earnCoins()">
-        ➕ اكسب 10 عملات
+      <div class="user">
+        الحساب: <span id="userEmail"></span>
+      </div>
+
+      <button class="logout-btn" id="logoutButton">
+        تسجيل الخروج
       </button>
 
     </section>
@@ -209,29 +298,238 @@
 
   </main>
 
-  <script>
+</div>
 
-    let coins =
-      Number(localStorage.getItem("tw_kapos_coins")) || 100;
+<script type="module">
 
-    const coinsElement =
-      document.getElementById("coins");
+  import { initializeApp }
+    from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-    coinsElement.textContent = coins;
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-    function earnCoins() {
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
-      coins += 10;
 
-      localStorage.setItem(
-        "tw_kapos_coins",
-        coins
-      );
+  const firebaseConfig = {
+    apiKey: "AIzaSyD6P4zOA4s3JdYide7EYd7GhWkaHC1IqYU",
+    authDomain: "tw-kapos.firebaseapp.com",
+    projectId: "tw-kapos",
+    storageBucket: "tw-kapos.firebasestorage.app",
+    messagingSenderId: "971379019777",
+    appId: "1:971379019777:web:e2e05505f14e3f44603000",
+    measurementId: "G-YZQST3S9BB"
+  };
 
-      coinsElement.textContent = coins;
+
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getFirestore(app);
+
+
+  const openLogin =
+    document.getElementById("openLogin");
+
+  const authBox =
+    document.getElementById("authBox");
+
+  const authTitle =
+    document.getElementById("authTitle");
+
+  const authButton =
+    document.getElementById("authButton");
+
+  const switchMode =
+    document.getElementById("switchMode");
+
+  const email =
+    document.getElementById("email");
+
+  const password =
+    document.getElementById("password");
+
+  const message =
+    document.getElementById("message");
+
+  const wallet =
+    document.getElementById("wallet");
+
+  const coins =
+    document.getElementById("coins");
+
+  const userEmail =
+    document.getElementById("userEmail");
+
+  const logoutButton =
+    document.getElementById("logoutButton");
+
+
+  let loginMode = true;
+
+
+  openLogin.addEventListener("click", () => {
+
+    authBox.style.display = "block";
+
+    openLogin.style.display = "none";
+
+  });
+
+
+  switchMode.addEventListener("click", () => {
+
+    loginMode = !loginMode;
+
+    if (loginMode) {
+
+      authTitle.textContent = "تسجيل الدخول";
+
+      authButton.textContent = "دخول";
+
+      switchMode.textContent = "إنشاء حساب جديد";
+
+    } else {
+
+      authTitle.textContent = "إنشاء حساب";
+
+      authButton.textContent = "إنشاء الحساب";
+
+      switchMode.textContent = "لدي حساب بالفعل";
+
     }
 
-  </script>
+    message.textContent = "";
+
+  });
+
+
+  authButton.addEventListener("click", async () => {
+
+    const userEmailValue =
+      email.value.trim();
+
+    const userPassword =
+      password.value;
+
+
+    if (!userEmailValue || !userPassword) {
+
+      message.textContent =
+        "اكتب البريد الإلكتروني وكلمة المرور.";
+
+      return;
+
+    }
+
+
+    message.textContent = "جاري المعالجة...";
+
+
+    try {
+
+      if (loginMode) {
+
+        await signInWithEmailAndPassword(
+          auth,
+          userEmailValue,
+          userPassword
+        );
+
+      } else {
+
+        const result =
+          await createUserWithEmailAndPassword(
+            auth,
+            userEmailValue,
+            userPassword
+          );
+
+        await setDoc(
+          doc(db, "profiles", result.user.uid),
+          {
+            coins: 4000,
+            email: userEmailValue
+          }
+        );
+
+      }
+
+      message.textContent = "";
+
+    } catch (error) {
+
+      message.textContent =
+        "حدث خطأ: " + error.message;
+
+    }
+
+  });
+
+
+  onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+      wallet.style.display = "none";
+
+      return;
+
+    }
+
+
+    authBox.style.display = "none";
+
+    openLogin.style.display = "none";
+
+    wallet.style.display = "block";
+
+    userEmail.textContent =
+      user.email;
+
+
+    const profileRef =
+      doc(db, "profiles", user.uid);
+
+    const profileSnap =
+      await getDoc(profileRef);
+
+
+    if (profileSnap.exists()) {
+
+      const data =
+        profileSnap.data();
+
+      coins.textContent =
+        data.coins;
+
+    }
+
+  });
+
+
+  logoutButton.addEventListener("click", async () => {
+
+    await signOut(auth);
+
+    wallet.style.display = "none";
+
+    openLogin.style.display = "block";
+
+  });
+
+</script>
 
 </body>
 </html>
