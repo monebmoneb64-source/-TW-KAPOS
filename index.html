@@ -4,11 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TW-KAPOS | موقعي الشخصي</title>
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-      background: linear-gradient(135deg, #0b0b0f, #17131f);
+      background:
+        radial-gradient(circle at top, #3b0000 0%, #160000 30%, #050505 70%);
       color: #fff;
       min-height: 100vh;
       display: flex;
@@ -16,17 +23,20 @@
       justify-content: center;
       padding: 24px;
     }
+
     .card {
       width: 100%;
       max-width: 720px;
       text-align: center;
-      background: rgba(255,255,255,.07);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10, 10, 10, 0.92);
+      border: 2px solid #e00000;
       border-radius: 28px;
       padding: 48px 28px;
-      box-shadow: 0 20px 70px rgba(0,0,0,.35);
-      backdrop-filter: blur(12px);
+      box-shadow:
+        0 0 25px rgba(255, 0, 0, 0.25),
+        0 20px 70px rgba(0, 0, 0, 0.8);
     }
+
     .avatar {
       width: 105px;
       height: 105px;
@@ -36,42 +46,86 @@
       place-items: center;
       font-size: 34px;
       font-weight: 800;
-      background: linear-gradient(135deg, #ff3b30, #8b1e1e);
-      box-shadow: 0 12px 35px rgba(255,59,48,.25);
+      background: linear-gradient(135deg, #ff0000, #700000);
+      border: 3px solid #ff1a1a;
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
     }
-    h1 { font-size: 42px; margin-bottom: 10px; }
-    .tag { color: #ff6259; font-size: 18px; margin-bottom: 18px; }
-    p { color: #c8c8ce; line-height: 1.8; font-size: 17px; }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+      color: #fff;
+      text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+
+    .tag {
+      color: #ff2222;
+      font-size: 18px;
+      margin-bottom: 18px;
+      font-weight: 700;
+    }
+
+    p {
+      color: #ddd;
+      line-height: 1.8;
+      font-size: 17px;
+    }
+
     .buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       margin-top: 30px;
     }
+
     a {
       text-decoration: none;
       color: white;
       padding: 15px;
       border-radius: 14px;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.1);
-      transition: .2s;
+      background: #111;
+      border: 1px solid #b00000;
+      transition: 0.2s;
       font-weight: 700;
     }
-    a:hover { transform: translateY(-2px); background: rgba(255,59,48,.2); }
-    .footer { margin-top: 30px; color: #888891; font-size: 14px; }
+
+    a:hover {
+      transform: translateY(-3px);
+      background: #c00000;
+      border-color: #ff3333;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #888;
+      font-size: 14px;
+    }
+
     @media (max-width: 520px) {
-      h1 { font-size: 34px; }
-      .buttons { grid-template-columns: 1fr; }
-      .card { padding: 38px 20px; }
+      h1 {
+        font-size: 34px;
+      }
+
+      .buttons {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 38px 20px;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="card">
     <div class="avatar">TW</div>
+
     <h1>TW-KAPOS</h1>
+
     <div class="tag">موقعي الشخصي</div>
+
     <p>
       أهلاً بيك في موقعي 👋<br>
       هنا تقدر تعرفني أكثر وتلقى روابط حساباتي ومشاريعي.
@@ -84,7 +138,9 @@
       <a href="#" target="_blank">▶️ YouTube</a>
     </div>
 
-    <div class="footer">© 2026 TW-KAPOS — جميع الحقوق محفوظة</div>
+    <div class="footer">
+      © 2026 TW-KAPOS — جميع الحقوق محفوظة
+    </div>
   </main>
 </body>
-</html>
+</htm
