@@ -13,10 +13,9 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-      background:
-        radial-gradient(circle at top, #3b0000 0%, #160000 30%, #050505 70%);
-      color: #fff;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top, #3b0000, #160000 30%, #050505 70%);
+      color: white;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -28,41 +27,36 @@
       width: 100%;
       max-width: 720px;
       text-align: center;
-      background: rgba(10, 10, 10, 0.92);
+      background: rgba(10, 10, 10, 0.95);
       border: 2px solid #e00000;
       border-radius: 28px;
-      padding: 48px 28px;
-      box-shadow:
-        0 0 25px rgba(255, 0, 0, 0.25),
-        0 20px 70px rgba(0, 0, 0, 0.8);
+      padding: 42px 28px;
+      box-shadow: 0 0 30px rgba(255, 0, 0, .25);
     }
 
     .avatar {
       width: 105px;
       height: 105px;
-      margin: 0 auto 22px;
+      margin: auto auto 20px;
       border-radius: 50%;
       display: grid;
       place-items: center;
       font-size: 34px;
-      font-weight: 800;
+      font-weight: bold;
       background: linear-gradient(135deg, #ff0000, #700000);
       border: 3px solid #ff1a1a;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
     }
 
     h1 {
       font-size: 42px;
-      margin-bottom: 10px;
-      color: #fff;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+      margin-bottom: 8px;
     }
 
     .tag {
       color: #ff2222;
       font-size: 18px;
       margin-bottom: 18px;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     p {
@@ -71,11 +65,65 @@
       font-size: 17px;
     }
 
+    .wallet {
+      margin: 28px auto 8px;
+      padding: 20px;
+      background: linear-gradient(145deg, #171717, #080808);
+      border: 1px solid #8d6200;
+      border-radius: 20px;
+    }
+
+    .coin {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 38px;
+      font-weight: 900;
+      color: #ffd84a;
+      background: radial-gradient(
+        circle at 30% 25%,
+        #fff2a6,
+        #ffd700 28%,
+        #d49b00 65%,
+        #8a5b00
+      );
+      border: 4px solid #ffe27a;
+      box-shadow: inset 0 0 0 4px #b87900;
+    }
+
+    .balance-label {
+      color: #aaa;
+      font-size: 14px;
+    }
+
+    .balance {
+      color: #ffd700;
+      font-size: 30px;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+
+    .earn-btn {
+      margin-top: 14px;
+      width: 100%;
+      border: 0;
+      border-radius: 13px;
+      padding: 14px;
+      background: linear-gradient(135deg, #ff0000, #9d0000);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
     .buttons {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-top: 30px;
+      margin-top: 22px;
     }
 
     a {
@@ -85,19 +133,15 @@
       border-radius: 14px;
       background: #111;
       border: 1px solid #b00000;
-      transition: 0.2s;
-      font-weight: 700;
+      font-weight: bold;
     }
 
     a:hover {
-      transform: translateY(-3px);
       background: #c00000;
-      border-color: #ff3333;
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.35);
     }
 
     .footer {
-      margin-top: 30px;
+      margin-top: 28px;
       color: #888;
       font-size: 14px;
     }
@@ -110,16 +154,14 @@
       .buttons {
         grid-template-columns: 1fr;
       }
-
-      .card {
-        padding: 38px 20px;
-      }
     }
   </style>
 </head>
 
 <body>
+
   <main class="card">
+
     <div class="avatar">TW</div>
 
     <h1>TW-KAPOS</h1>
@@ -131,16 +173,65 @@
       هنا تقدر تعرفني أكثر وتلقى روابط حساباتي ومشاريعي.
     </p>
 
+    <section class="wallet">
+
+      <div class="coin">$</div>
+
+      <div class="balance-label">
+        رصيد العملات
+      </div>
+
+      <div class="balance">
+        <span id="coins">100</span> 🪙
+      </div>
+
+      <button class="earn-btn" onclick="earnCoins()">
+        ➕ اكسب 10 عملات
+      </button>
+
+    </section>
+
     <div class="buttons">
+
       <a href="#" target="_blank">🎮 حسابي</a>
+
       <a href="#" target="_blank">📱 تواصل معي</a>
+
       <a href="#" target="_blank">📸 Instagram</a>
+
       <a href="#" target="_blank">▶️ YouTube</a>
+
     </div>
 
     <div class="footer">
       © 2026 TW-KAPOS — جميع الحقوق محفوظة
     </div>
+
   </main>
+
+  <script>
+
+    let coins =
+      Number(localStorage.getItem("tw_kapos_coins")) || 100;
+
+    const coinsElement =
+      document.getElementById("coins");
+
+    coinsElement.textContent = coins;
+
+    function earnCoins() {
+
+      coins += 10;
+
+      localStorage.setItem(
+        "tw_kapos_coins",
+        coins
+      );
+
+      coinsElement.textContent = coins;
+    }
+
+  </script>
+
 </body>
-</htm
+</html>
