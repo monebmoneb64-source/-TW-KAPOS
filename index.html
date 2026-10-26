@@ -1,58 +1,88 @@
-T
-TW-KAPOS
-رصيدك: 4,000 🪙
-☰
-مرحبًا بك في TW-KAPOS
-عالم الألعاب والشحن في مكان واحد
-تصفّح الأقسام، واكتشف الخدمات المتاحة، وتابع رصيد عملاتك من واجهة واحدة بتصميم داكن وأحمر.
-اكتشف الأقسام　←
-
-مسح
-الأقسام
-اختر القسم المناسب
-🎯
-ببجي موبايل
-شحن الألعاب
-🛡️
-فورتنايت
-بطاقات وألعاب
-❤️
-خدمات التفاعل
-لايكات ومتابعات
-🎁
-بطاقات الألعاب
-بطاقات رقمية
-الخدمات المميزة
-نموذج تجريبي
-الأكثر طلبًا
-🎯
-شحن ببجي موبايل
-واجهة لعرض خدمة شحن اللعبة. أضف الأسعار الحقيقية بعد إعداد مزوّد الخدمة.
-يُحدّد السعر لاحقًا
-عرض الخدمة
-ألعاب
-🛡️
-بطاقات فورتنايت
-مكان مخصص لعرض البطاقات الرقمية والتفاصيل والأسعار.
-يُحدّد السعر لاحقًا
-عرض الخدمة
-بطاقات رقمية
-🎁
-بطاقات الألعاب
-أضف أنواع البطاقات المتاحة وأسعارها بعد التأكد من المزوّد.
-يُحدّد السعر لاحقًا
-عرض الخدمة
-TW-KAPOS © — نموذج واجهة قابل للتطوير
-×
-T
-حساب TW-KAPOS
-رصيد العملات
-4,000 🪙
-إجمالي المصروف
-0 🪙
-⌂ الرئيسية
-⊕ إضافة رصيد
-▤ طلباتي
-☏ الدردشة
-♙ تسجيل الدخول
-تنبيه: الرصيد الظاهر تجريبي ومحفوظ محليًا في هذا المتصفح فقط. لم يتم ربط Firebase أو API أو نظام دفع بعد.
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TW-KAPOS</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;
+ font-family:Arial,Tahoma,sans-serif;
+ background:radial-gradient(circle at top,#182238,#080b14 60%,#05070c);
+ color:#f4f7fb;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{
+ display:flex;justify-content:space-between;align-items:center;
+ padding:15px;background:#090e19;border-bottom:1px solid #263247;
+ position:sticky;top:0;z-index:5;gap:10px;
+}
+.brand{font-size:22px;font-weight:bold}
+.logo{
+ display:inline-grid;place-items:center;width:40px;height:40px;
+ border-radius:12px;background:#e52b35;margin-left:8px;
+}
+.balance{
+ background:#092733;border:1px solid #166b87;
+ border-radius:25px;padding:10px;color:#f7c84b;font-weight:bold;
+}
+.menu{
+ background:#151e2c;border:1px solid #2c3a4d;
+ color:white;border-radius:10px;padding:10px 14px;font-size:20px;
+}
+main{max-width:1100px;margin:auto;padding:20px 15px 50px}
+.hero{
+ padding:30px 22px;border:1px solid #27354a;border-radius:22px;
+ background:linear-gradient(120deg,#151f33,#111827,#351017);
+ min-height:220px;
+}
+.hero h1{font-size:32px;margin:12px 0}
+.hero p{color:#c1ccda;line-height:1.9}
+.primary{
+ border:0;border-radius:10px;background:#e52b35;
+ color:white;padding:13px 20px;font-weight:bold;
+}
+.searchrow{display:flex;gap:10px;margin:24px 0}
+.search{
+ flex:1;min-width:0;background:#111827;border:1px solid #2c3a4e;
+ border-radius:12px;padding:13px;color:white;
+}
+.sectionhead{
+ display:flex;justify-content:space-between;align-items:center;
+ margin:25px 0 15px;
+}
+.sectionhead h2{font-size:23px;margin:0}
+.muted{color:#9aa8ba;font-size:13px}
+.categories{
+ display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+}
+.category{
+ background:#131d2c;border:1px solid #28374b;
+ border-radius:15px;padding:18px 8px;color:white;text-align:center;
+}
+.category span{display:block;font-size:32px;margin-bottom:8px}
+.category small{display:block;color:#9aa8ba;margin-top:7px}
+.products{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:15px;
+}
+.product{
+ overflow:hidden;border:1px solid #28364a;
+ border-radius:18px;background:#101725;
+}
+.art{
+ height:135px;display:grid;place-items:center;font-size:65px;
+ background:radial-gradient(circle,#344c78,#111827);
+}
+.red{background:radial-gradient(circle,#7d2732,#17111a)}
+.gold{background:radial-gradient(circle,#6d5822,#171827)}
+.productbody{padding:14px}
+.productbody h3{margin:0 0 8px}
+.productbody p{color:#9aa8ba;font-size:13px;line-height:1.8}
+.productfoot{display:flex;flex-direction:column;gap:10px}
+.price{color:#f7c84b;font-weight:bold}
+.smallbtn{
+ background:#163247;color:#bceeff;border:1px solid #216783;
+ border-radius:9px;padding:10px;
+}
