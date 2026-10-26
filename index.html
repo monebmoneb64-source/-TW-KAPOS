@@ -1,1 +1,313 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TW-KAPOS | Digital Store</title>
+<style>
+:root{--bg:#09090d;--panel:#15151c;--line:#30303b;--red:#e32b35;--text:#f7f7fa;--muted:#a7a7b4;--gold:#ffd45b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Tahoma,sans-serif}
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.5;cursor:not-allowed}
+.layout{display:flex;min-height:100vh}
+.sidebar{width:245px;background:#101015;border-left:1px solid var(--line);padding:22px 14px;flex-shrink:0}
+.logo{font-size:25px;font-weight:bold;color:var(--red);padding:8px 10px 25px}
+.logo span{color:white}
+.nav-title{color:var(--muted);font-size:12px;padding:14px 10px 8px}
+.nav{display:block;width:100%;text-align:right;padding:13px 12px;margin:4px 0;background:transparent;color:#ddd;border:0;border-radius:9px}
+.nav:hover,.nav.active{background:#351316;color:#fff}
+.main{flex:1;min-width:0}
+.topbar{height:70px;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 22px;background:#101015;border-bottom:1px solid var(--line)}
+.top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{padding:10px 14px;border-radius:9px;border:1px solid var(--line);background:#202029;color:white}
+.btn-red{background:var(--red);border-color:var(--red);color:white}
+.btn-gold{background:#382d12;border-color:#766021;color:var(--gold)}
+.balance{color:var(--gold);font-weight:bold;padding:10px 13px;background:#242019;border:1px solid #4b4025;border-radius:10px}
+.mobile-menu{display:none}
+.content{max-width:1200px;margin:auto;padding:25px}
+.page{display:none}
+.page.active{display:block}
+.hero{padding:35px 25px;border:1px solid #462126;border-radius:18px;background:linear-gradient(120deg,#321014,#171016 60%,#101015);margin-bottom:25px}
+.hero h1{font-size:clamp(26px,4vw,40px);margin:0 0 12px}
+.hero h1 span{color:#ff555d}
+.hero p{color:#c3bbc2;line-height:1.9}
+.search{width:100%;max-width:520px;padding:13px;border-radius:10px;background:#0d0d12;border:1px solid var(--line);color:white}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.section-head h2{font-size:21px}
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0 22px}
+.chip{border:1px solid var(--line);border-radius:30px;background:#17171e;color:#eee;padding:9px 15px}
+.chip.active{background:#8f1c25;border-color:#e32b35}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:15px;overflow:hidden}
+.card-img{height:130px;display:flex;align-items:center;justify-content:center;background:linear-gradient(140deg,#351216,#17171e);font-size:54px}
+.card-body{padding:15px}
+.card h3{margin:0 0 9px}
+.card p{color:var(--muted);font-size:13px;line-height:1.7;min-height:36px}
+.price{color:var(--gold);font-weight:bold;margin:14px 0}
+.card .btn{width:100%}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:18px}
+.panel p{color:var(--muted);line-height:1.8}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.field label{display:block;margin-bottom:7px;color:#ddd;font-size:14px}
+.field input,.field select{width:100%;padding:12px;border-radius:9px;border:1px solid #41414c;background:#0c0c11;color:white}
+.field{margin-bottom:14px}
+.notice{background:#272116;border:1px solid #574624;color:#f6d99b;border-radius:10px;padding:13px;line-height:1.8;font-size:13px}
+.status{color:var(--gold)}
+footer{text-align:center;padding:25px;color:#888;border-top:1px solid var(--line);margin-top:30px}
+.modal{display:none;position:fixed;inset:0;z-index:20;background:#000c;align-items:center;justify-content:center;padding:16px}
+.modal.open{display:flex}
+.modal-box{width:100%;max-width:430px;max-height:90vh;overflow:auto;background:#17171e;border:1px solid #444;border-radius:16px;padding:22px}
+.modal-head{display:flex;justify-content:space-between;align-items:center}
+.toast{display:none;margin:12px 0;padding:12px;border-radius:9px;background:#202029;line-height:1.7}
+.empty{color:var(--muted);padding:15px 0}
+[dir="ltr"] .sidebar{border-left:0;border-right:1px solid var(--line)}
+[dir="ltr"] .nav{text-align:left}
+@media(max-width:760px){
+ .layout{display:block}
+ .sidebar{display:none;position:fixed;z-index:15;top:0;bottom:0;right:0;overflow:auto;box-shadow:0 0 0 100vmax #0009}
+ [dir="ltr"] .sidebar{right:auto;left:0}
+ .sidebar.open{display:block}
+ .mobile-menu{display:inline-block}
+ .topbar{padding:10px 12px;height:auto;min-height:65px}
+ .content{padding:14px}
+ .hero{padding:24px 17px}
+ .balance{font-size:13px;padding:9px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+ <div class="logo">TW-<span>KAPOS</span></div>
+ <div class="nav-title" data-ar="القائمة الرئيسية" data-en="MAIN MENU">القائمة الرئيسية</div>
+ <button class="nav active" data-page="home" data-ar="⌂ الرئيسية" data-en="⌂ Home">⌂ الرئيسية</button>
+ <button class="nav" data-page="store" data-ar="▦ جميع الخدمات" data-en="▦ All Services">▦ جميع الخدمات</button>
+ <button class="nav" data-page="wallet" data-ar="◈ المحفظة وشحن الرصيد" data-en="◈ Wallet & Top Up">◈ المحفظة وشحن الرصيد</button>
+ <button class="nav" data-page="orders" data-ar="▤ طلباتي" data-en="▤ My Orders">▤ طلباتي</button>
+ <button class="nav" data-page="support" data-ar="✉ الدعم والتواصل" data-en="✉ Support">✉ الدعم والتواصل</button>
+ <div class="nav-title" data-ar="الحساب" data-en="ACCOUNT">الحساب</div>
+ <button class="nav" id="sidebarLogin" data-ar="♙ تسجيل الدخول" data-en="♙ Sign In" onclick="openAuth()">♙ تسجيل الدخول</button>
+ <button class="nav" id="logoutBtn" hidden onclick="logout()" data-ar="⇥ تسجيل الخروج" data-en="⇥ Sign Out">⇥ تسجيل الخروج</button>
+ <button class="nav" onclick="toggleLanguage()" data-ar="🌐 English" data-en="🌐 العربية">🌐 English</button>
+</aside>
+
+<div class="main">
+ <header class="topbar">
+  <div class="top-actions">
+   <button class="btn mobile-menu" onclick="toggleSidebar()">☰</button>
+   <strong>TW-KAPOS</strong>
+  </div>
+  <div class="top-actions">
+   <div class="balance"><span data-ar="رصيدك:" data-en="Balance:">رصيدك:</span> <span id="balance">0.00</span> LYD</div>
+   <button class="btn btn-red" onclick="goPage('wallet')" data-ar="+ إضافة رصيد" data-en="+ Add Funds">+ إضافة رصيد</button>
+   <button class="btn" id="accountBtn" onclick="openAuth()" data-ar="دخول" data-en="Sign In">دخول</button>
+  </div>
+ </header>
+
+ <main class="content">
+  <section class="page active" id="page-home">
+   <div class="hero">
+    <h1 data-ar="مرحباً بك في <span>TW-KAPOS</span>" data-en="Welcome to <span>TW-KAPOS</span>">مرحباً بك في <span>TW-KAPOS</span></h1>
+    <p data-ar="متجرك للخدمات الرقمية والألعاب في مكان واحد." data-en="Your digital services and gaming store in one place.">متجرك للخدمات الرقمية والألعاب في مكان واحد.</p>
+    <button class="btn btn-red" onclick="goPage('store')" data-ar="استكشف الخدمات ←" data-en="Explore Services →">استكشف الخدمات ←</button>
+   </div>
+   <div class="section-head">
+    <h2 data-ar="🔥 الخدمات والأقسام" data-en="🔥 Services & Categories">🔥 الخدمات والأقسام</h2>
+    <input class="search" id="searchHome" placeholder="ابحث عن خدمة..." data-placeholder-ar="ابحث عن خدمة..." data-placeholder-en="Search services..." oninput="renderProducts()">
+   </div>
+   <div class="categories" id="homeCategories"></div>
+   <div class="grid" id="homeProducts"></div>
+  </section>
+
+  <section class="page" id="page-store">
+   <div class="section-head"><h2 data-ar="جميع الخدمات" data-en="All Services">جميع الخدمات</h2>
+   <input class="search" id="searchStore" placeholder="ابحث عن خدمة..." data-placeholder-ar="ابحث عن خدمة..." data-placeholder-en="Search services..." oninput="renderProducts()"></div>
+   <div class="categories" id="storeCategories"></div>
+   <div class="grid" id="storeProducts"></div>
+  </section>
+
+  <section class="page" id="page-wallet">
+   <h2 data-ar="المحفظة وإضافة الرصيد" data-en="Wallet & Add Funds">المحفظة وإضافة الرصيد</h2>
+   <div class="panel">
+    <p data-ar="رصيد حسابك الحالي" data-en="Your current balance">رصيد حسابك الحالي</p>
+    <div class="balance" style="display:inline-block;font-size:24px"><span id="walletBalance">0.00</span> LYD</div>
+   </div>
+   <div class="panel">
+    <h3 data-ar="شحن عبر رصيد ليبيانا" data-en="Top up via Libyana credit">شحن عبر رصيد ليبيانا</h3>
+    <div class="notice" data-ar="بعد التحويل، أرسل رقم هاتفك ورقم العملية والمبلغ. سيبقى الطلب قيد المراجعة، ولن يتغير رصيدك إلا بعد التأكيد." data-en="After transferring credit, submit your phone number, transaction reference and amount. Your balance will not change until the transfer is verified.">بعد التحويل، أرسل رقم هاتفك ورقم العملية والمبلغ. سيبقى الطلب قيد المراجعة، ولن يتغير رصيدك إلا بعد التأكيد.</div>
+    <p><strong data-ar="رقم التحويل:" data-en="Transfer number:">رقم التحويل:</strong> <span id="libyanaNumber">أضف رقم ليبيانا هنا</span></p>
+    <p data-ar="تأكد من الرقم قبل التحويل. لا ترسل كلمة مرور أو رمز تحقق." data-en="Verify the number before transferring. Never send a password or verification code.">تأكد من الرقم قبل التحويل. لا ترسل كلمة مرور أو رمز تحقق.</p>
+    <form id="topupForm">
+     <div class="form-grid">
+      <div class="field"><label data-ar="رقم هاتفك" data-en="Your phone number">رقم هاتفك</label><input id="phone" type="tel" required placeholder="09xxxxxxxx"></div>
+      <div class="field"><label data-ar="المبلغ بالدينار الليبي" data-en="Amount in LYD">المبلغ بالدينار الليبي</label><input id="amount" type="number" required min="1" step="0.5" placeholder="10"></div>
+      <div class="field"><label data-ar="رقم العملية / مرجع التحويل" data-en="Transaction reference">رقم العملية / مرجع التحويل</label><input id="reference" required maxlength="100" placeholder="رقم العملية"></div>
+     </div>
+     <div class="field"><label data-ar="ملاحظات (اختياري)" data-en="Notes (optional)">ملاحظات (اختياري)</label><input id="notes" maxlength="250" placeholder="ملاحظات"></div>
+     <button class="btn btn-red" type="submit" data-ar="إرسال طلب الشحن للمراجعة" data-en="Submit top-up for review">إرسال طلب الشحن للمراجعة</button>
+    </form>
+    <div id="topupMessage" class="toast"></div>
+   </div>
+   <div class="panel"><h3 data-ar="طلبات الشحن" data-en="Top-up Requests">طلبات الشحن</h3><div id="topupList" class="empty" data-ar="لا توجد طلبات في هذه الجلسة." data-en="No requests in this session.">لا توجد طلبات في هذه الجلسة.</div></div>
+  </section>
+
+  <section class="page" id="page-orders">
+   <h2 data-ar="طلباتي" data-en="My Orders">طلباتي</h2>
+   <div class="panel" id="ordersList" data-ar="لا توجد طلبات بعد." data-en="No orders yet.">لا توجد طلبات بعد.</div>
+  </section>
+
+  <section class="page" id="page-support">
+   <h2 data-ar="الدعم والتواصل" data-en="Support">الدعم والتواصل</h2>
+   <div class="panel">
+    <p data-ar="للاستفسار عن طلب أو عملية شحن، تواصل مع إدارة الموقع عبر وسيلة الدعم التي ستضيفها هنا." data-en="For help with an order or top-up, contact the store administrator using the support method added here.">للاستفسار عن طلب أو عملية شحن، تواصل مع إدارة الموقع عبر وسيلة الدعم التي ستضيفها هنا.</p>
+   </div>
+  </section>
+  <footer>TW-KAPOS © 2026</footer>
+ </main>
+</div>
+</div>
+
+<div class="modal" id="authModal">
+ <div class="modal-box">
+  <div class="modal-head"><h2 id="authTitle" data-ar="تسجيل الدخول" data-en="Sign In">تسجيل الدخول</h2><button class="btn" onclick="closeAuth()">✕</button></div>
+  <div class="field"><label data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</label><input id="authEmail" type="email" autocomplete="email" required></div>
+  <div class="field"><label data-ar="كلمة المرور" data-en="Password">كلمة المرور</label><input id="authPassword" type="password" autocomplete="current-password" required minlength="6"></div>
+  <button class="btn btn-red" style="width:100%;margin-bottom:10px" onclick="authAction('login')" data-ar="دخول" data-en="Sign In">دخول</button>
+  <button class="btn" style="width:100%" onclick="authAction('register')" data-ar="إنشاء حساب جديد" data-en="Create Account">إنشاء حساب جديد</button>
+  <div id="authMessage" class="toast"></div>
+ </div>
+</div>
+
+<script>
+/* أضف رقم التحويل الصحيح قبل نشر الموقع */
+const LIBYANA_TRANSFER_NUMBER = "أضف رقم ليبيانا هنا";
+
+let language = "ar";
+let category = "all";
+let currentUser = null;
+let demoBalance = 0;
+let demoTopups = [];
+let demoOrders = [];
+
+const services = [
+ {id:1,icon:"🎮",nameAr:"ببجي موبايل",nameEn:"PUBG Mobile",descAr:"خدمات لعبة ببجي",descEn:"PUBG game services",category:"games",price:5},
+ {id:2,icon:"🪙",nameAr:"شدات ببجي",nameEn:"PUBG UC",descAr:"واجهة طلب شدات",descEn:"PUBG UC service",category:"games",price:10},
+ {id:3,icon:"🕹️",nameAr:"فورتنايت",nameEn:"Fortnite",descAr:"خدمات الألعاب",descEn:"Gaming services",category:"games",price:5},
+ {id:4,icon:"❤️",nameAr:"إعجابات",nameEn:"Likes",descAr:"خدمات تفاعل",descEn:"Engagement service",category:"social",price:2},
+ {id:5,icon:"👥",nameAr:"متابعون",nameEn:"Followers",descAr:"خدمات حسابات التواصل",descEn:"Social account services",category:"social",price:3},
+ {id:6,icon:"👁️",nameAr:"مشاهدات",nameEn:"Views",descAr:"خدمات المشاهدات",descEn:"Views service",category:"social",price:2},
+ {id:7,icon:"🎁",nameAr:"بطاقات رقمية",nameEn:"Digital Cards",descAr:"منتجات رقمية",descEn:"Digital products",category:"digital",price:10},
+ {id:8,icon:"⭐",nameAr:"خدمة مميزة",nameEn:"Premium Service",descAr:"خدمات إضافية",descEn:"Additional services",category:"digital",price:7}
+];
+
+function t(ar,en){return language==="ar"?ar:en}
+function money(n){return Number(n).toFixed(2)}
+function updateBalance(){
+ document.getElementById("balance").textContent=money(demoBalance);
+ document.getElementById("walletBalance").textContent=money(demoBalance);
+}
+function toggleLanguage(){
+ language=language==="ar"?"en":"ar";
+ document.documentElement.lang=language;
+ document.documentElement.dir=language==="ar"?"rtl":"ltr";
+ document.querySelectorAll("[data-ar][data-en]").forEach(el=>{
+   el.innerHTML=language==="ar"?el.dataset.ar:el.dataset.en;
+ });
+ document.querySelectorAll("[data-placeholder-ar]").forEach(el=>{
+   el.placeholder=language==="ar"?el.dataset.placeholderAr:el.dataset.placeholderEn;
+ });
+ document.getElementById("libyanaNumber").textContent=LIBYANA_TRANSFER_NUMBER;
+ renderCategories();
+ renderProducts();
+}
+function toggleSidebar(){document.getElementById("sidebar").classList.toggle("open")}
+function goPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById("page-"+name).classList.add("active");
+ document.querySelectorAll(".nav[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+ document.getElementById("sidebar").classList.remove("open");
+ if(name==="wallet")renderTopups();
+ if(name==="orders")renderOrders();
+ window.scrollTo(0,0);
+}
+document.querySelectorAll(".nav[data-page]").forEach(btn=>btn.addEventListener("click",()=>goPage(btn.dataset.page)));
+
+function renderCategories(){
+ const cats=[["all","الكل","All"],["games","الألعاب","Games"],["social","التفاعل","Social"],["digital","رقمي","Digital"]];
+ const html=cats.map(c=>`<button class="chip ${category===c[0]?"active":""}" onclick="setCategory('${c[0]}')">${t(c[1],c[2])}</button>`).join("");
+ document.getElementById("homeCategories").innerHTML=html;
+ document.getElementById("storeCategories").innerHTML=html;
+}
+function setCategory(c){category=c;renderCategories();renderProducts()}
+function renderProducts(){
+ const q=(document.getElementById("searchHome").value+" "+document.getElementById("searchStore").value).trim().toLowerCase();
+ const list=services.filter(s=>(category==="all"||s.category===category)&&
+  (!q||(s.nameAr+" "+s.nameEn+" "+s.descAr+" "+s.descEn).toLowerCase().includes(q)));
+ const html=list.map(s=>`<article class="card">
+  <div class="card-img">${s.icon}</div><div class="card-body">
+  <h3>${t(s.nameAr,s.nameEn)}</h3><p>${t(s.descAr,s.descEn)}</p>
+  <div class="price">${money(s.price)} LYD</div>
+  <button class="btn btn-red" onclick="buyService(${s.id})">${t("اطلب الخدمة","Order Service")}</button>
+  </div></article>`).join("")||`<p class="empty">${t("لا توجد خدمات مطابقة.","No matching services.")}</p>`;
+ document.getElementById("homeProducts").innerHTML=html;
+ document.getElementById("storeProducts").innerHTML=html;
+}
+function buyService(id){
+ const s=services.find(x=>x.id===id);
+ if(!currentUser){alert(t("سجّل الدخول أولاً.","Please sign in first."));openAuth();return}
+ if(demoBalance<s.price){alert(t("رصيدك غير كافٍ. أضف رصيدًا أولاً.","Insufficient balance. Add funds first."));goPage("wallet");return}
+ if(!confirm(t("تأكيد طلب ","Confirm order: ")+t(s.nameAr,s.nameEn)+" — "+money(s.price)+" LYD?"))return;
+ demoBalance-=s.price;
+ demoOrders.push({name:t(s.nameAr,s.nameEn),price:s.price,status:t("قيد المراجعة","Pending review")});
+ updateBalance();renderOrders();
+ alert(t("تم إنشاء طلب تجريبي فقط. اربط نظام الطلبات قبل استقبال العملاء.","Demo order created only. Connect a real order system before accepting customers."));
+}
+function renderOrders(){
+ const box=document.getElementById("ordersList");
+ if(!demoOrders.length){box.textContent=t("لا توجد طلبات بعد.","No orders yet.");return}
+ box.innerHTML=demoOrders.map(o=>`<p>${o.name} — ${money(o.price)} LYD — <span class="status">${o.status}</span></p>`).join("");
+}
+function openAuth(){document.getElementById("authModal").classList.add("open")}
+function closeAuth(){document.getElementById("authModal").classList.remove("open")}
+function showAuthMessage(msg){const el=document.getElementById("authMessage");el.style.display="block";el.textContent=msg}
+function authAction(action){
+ const email=document.getElementById("authEmail").value.trim();
+ const password=document.getElementById("authPassword").value;
+ if(!email||password.length<6){showAuthMessage(t("أدخل البريد وكلمة مرور من 6 أحرف على الأقل.","Enter your email and a password of at least 6 characters."));return}
+ showAuthMessage(t("تسجيل الدخول الحقيقي يحتاج إعداد Firebase في هذا الملف. لم يتم إنشاء حساب.","Real sign-in requires Firebase configuration in this file. No account was created."));
+}
+function logout(){
+ currentUser=null;
+ document.getElementById("sidebarLogin").hidden=false;
+ document.getElementById("logoutBtn").hidden=true;
+ document.getElementById("accountBtn").textContent=t("دخول","Sign In");
+ alert(t("تم الخروج من الواجهة التجريبية.","Signed out of the demo interface."));
+}
+document.getElementById("topupForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ if(!currentUser){alert(t("سجّل الدخول أولاً لتقديم طلب شحن.","Please sign in before submitting a top-up request."));openAuth();return}
+ const phone=document.getElementById("phone").value.trim();
+ const amount=Number(document.getElementById("amount").value);
+ const reference=document.getElementById("reference").value.trim();
+ const notes=document.getElementById("notes").value.trim();
+ if(!phone||!Number.isFinite(amount)||amount<=0||!reference){alert(t("راجع البيانات المدخلة.","Please check the submitted details."));return}
+ demoTopups.unshift({phone,amount,reference,notes,status:t("قيد المراجعة — لم يُضف الرصيد","Pending review — no funds added")});
+ document.getElementById("topupMessage").style.display="block";
+ document.getElementById("topupMessage").textContent=t("تم تجهيز طلب تجريبي في هذه الجلسة فقط. لم يُرسل للإدارة بعد.","A demo request was created in this session only. It has not been sent to the administrator.");
+ this.reset();renderTopups();
+});
+function renderTopups(){
+ const box=document.getElementById("topupList");
+ if(!demoTopups.length){box.textContent=t("لا توجد طلبات في هذه الجلسة.","No requests in this session.");return}
+ box.innerHTML=demoTopups.map(r=>`<div class="panel"><strong>${money(r.amount)} LYD</strong><p>${t("الهاتف: ","Phone: ")}${escapeText(r.phone)}</p><p>${t("المرجع: ","Reference: ")}${escapeText(r.reference)}</p><p class="status">${r.status}</p></div>`).join("");
+}
+function escapeText(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+document.getElementById("libyanaNumber").textContent=LIBYANA_TRANSFER_NUMBER;
+renderCategories();renderProducts();updateBalance();
+</script>
+</body>
+</html>
+
