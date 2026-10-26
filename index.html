@@ -86,3 +86,199 @@ main{max-width:1100px;margin:auto;padding:20px 15px 50px}
  background:#163247;color:#bceeff;border:1px solid #216783;
  border-radius:9px;padding:10px;
 }
+footer{
+ text-align:center;padding:22px;color:#9aa8ba;
+ border-top:1px solid #202c3e;
+}
+.backdrop{
+ display:none;position:fixed;inset:0;background:#000b;z-index:9;
+}
+.drawer{
+ position:fixed;top:0;right:0;width:min(360px,88vw);height:100%;
+ overflow:auto;background:#0c1320;border-left:1px solid #28364a;
+ padding:22px;z-index:10;transform:translateX(110%);
+ transition:.25s;
+}
+.drawer.open{transform:translateX(0)}
+.backdrop.open{display:block}
+.close{
+ float:left;background:none;border:0;color:white;font-size:28px;
+}
+.profile{text-align:center;padding:25px 0}
+.avatar{
+ width:80px;height:80px;border-radius:50%;display:grid;
+ place-items:center;margin:auto;background:#b81925;font-size:40px;
+}
+.stats{
+ display:grid;grid-template-columns:1fr 1fr;gap:10px;
+ background:#080e19;padding:15px;border-radius:12px;
+}
+.stats small{display:block;color:#9aa8ba;margin-bottom:8px}
+.stats strong{color:#39dc91}
+.menuitem{
+ display:block;width:100%;text-align:right;background:none;
+ border:0;border-bottom:1px solid #202b3c;color:#d7e0ed;
+ padding:17px 5px;font-size:17px;
+}
+.notice{
+ margin-top:18px;padding:12px;border-radius:10px;
+ background:#2a2111;color:#f9dda0;font-size:12px;line-height:1.8;
+}
+@media(max-width:650px){
+ .categories{grid-template-columns:repeat(2,1fr)}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ .hero h1{font-size:27px}
+ .brand{font-size:17px}
+ .balance{font-size:12px;padding:9px}
+ .productbody{padding:10px}
+ .productbody h3{font-size:15px}
+ .art{height:110px;font-size:50px}
+}
+@media(max-width:380px){
+ .products{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<header>
+ <div class="brand"><span class="logo">T</span>TW-KAPOS</div>
+ <div class="balance">🪙 <span id="coinBalance">4,000</span></div>
+ <button class="menu" onclick="openDrawer()">☰</button>
+</header>
+
+<main>
+ <section class="hero">
+  <div class="muted">مرحبًا بك في TW-KAPOS</div>
+  <h1>عالم الألعاب والشحن</h1>
+  <p>اكتشف الألعاب والبطاقات والخدمات المتاحة في موقعك.</p>
+  <button class="primary" onclick="document.getElementById('categories').scrollIntoView({behavior:'smooth'})">
+   اكتشف الأقسام ←
+  </button>
+ </section>
+
+ <div class="searchrow">
+  <input class="search" id="search" placeholder="ابحث عن لعبة أو خدمة..." oninput="filterProducts()">
+ </div>
+
+ <div class="sectionhead" id="categories">
+  <h2>الأقسام</h2><span class="muted">اختر القسم</span>
+ </div>
+
+ <section class="categories">
+  <button class="category" onclick="pickCategory('ببجي')">
+   <span>🎯</span><strong>ببجي موبايل</strong><small>شحن الألعاب</small>
+  </button>
+  <button class="category" onclick="pickCategory('فورتنايت')">
+   <span>🛡️</span><strong>فورتنايت</strong><small>بطاقات وألعاب</small>
+  </button>
+  <button class="category" onclick="pickCategory('لايكات')">
+   <span>❤️</span><strong>خدمات التفاعل</strong><small>لايكات ومتابعات</small>
+  </button>
+  <button class="category" onclick="pickCategory('بطاقات')">
+   <span>🎁</span><strong>بطاقات الألعاب</strong><small>بطاقات رقمية</small>
+  </button>
+ </section>
+
+ <div class="sectionhead">
+  <h2>الخدمات المميزة</h2><span class="muted">خدمات الموقع</span>
+ </div>
+
+ <section class="products" id="products">
+  <article class="product" data-search="ببجي pubg شحن">
+   <div class="art">🎯</div>
+   <div class="productbody">
+    <h3>شحن ببجي موبايل</h3>
+    <p>تفاصيل خدمة شحن لعبة ببجي.</p>
+    <div class="productfoot">
+     <span class="price">السعر يحدد لاحقًا</span>
+     <button class="smallbtn" onclick="requestService('شحن ببجي موبايل')">عرض الخدمة</button>
+    </div>
+   </div>
+  </article>
+
+  <article class="product" data-search="فورتنايت fortnite بطاقات">
+   <div class="art red">🛡️</div>
+   <div class="productbody">
+    <h3>بطاقات فورتنايت</h3>
+    <p>مكان مخصص لعرض البطاقات الرقمية.</p>
+    <div class="productfoot">
+     <span class="price">السعر يحدد لاحقًا</span>
+     <button class="smallbtn" onclick="requestService('بطاقات فورتنايت')">عرض الخدمة</button>
+    </div>
+   </div>
+  </article>
+
+  <article class="product" data-search="بطاقات ألعاب">
+   <div class="art gold">🎁</div>
+   <div class="productbody">
+    <h3>بطاقات الألعاب</h3>
+    <p>أضف البطاقات والأسعار المناسبة لمتجرك.</p>
+    <div class="productfoot">
+     <span class="price">السعر يحدد لاحقًا</span>
+     <button class="smallbtn" onclick="requestService('بطاقات الألعاب')">عرض الخدمة</button>
+    </div>
+   </div>
+  </article>
+ </section>
+</main>
+
+<footer>TW-KAPOS © <span id="year"></span></footer>
+
+<div class="backdrop" id="backdrop" onclick="closeDrawer()"></div>
+
+<aside class="drawer" id="drawer">
+ <button class="close" onclick="closeDrawer()">×</button>
+ <div class="profile">
+  <div class="avatar">T</div>
+  <h2>حساب TW-KAPOS</h2>
+  <div class="stats">
+   <div><small>رصيد العملات</small><strong>4,000 🪙</strong></div>
+   <div><small>إجمالي المصروف</small><strong>0 🪙</strong></div>
+  </div>
+ </div>
+
+ <button class="menuitem" onclick="closeDrawer()">⌂　الرئيسية</button>
+ <button class="menuitem" onclick="showInfo('إضافة رصيد')">⊕　إضافة رصيد</button>
+ <button class="menuitem" onclick="showInfo('طلباتي')">▤　طلباتي</button>
+ <button class="menuitem" onclick="showInfo('الدردشة')">☏　الدردشة</button>
+ <button class="menuitem" onclick="showInfo('تسجيل الدخول')">♙　تسجيل الدخول</button>
+
+ <div class="notice">
+  الرصيد الظاهر تجريبي فقط. يلزم ربط Firebase لحفظ رصيد مستقل لكل مستخدم.
+  لا تلصق مفتاح SWISE CENTER داخل هذا الملف.
+ </div>
+</aside>
+
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+
+function openDrawer(){
+ document.getElementById('drawer').classList.add('open');
+ document.getElementById('backdrop').classList.add('open');
+}
+function closeDrawer(){
+ document.getElementById('drawer').classList.remove('open');
+ document.getElementById('backdrop').classList.remove('open');
+}
+function filterProducts(){
+ const q=document.getElementById('search').value.trim().toLowerCase();
+ document.querySelectorAll('.product').forEach(p=>{
+  p.style.display=p.dataset.search.toLowerCase().includes(q)||
+  p.innerText.toLowerCase().includes(q)?'':'none';
+ });
+}
+function pickCategory(name){
+ document.getElementById('search').value=name;
+ filterProducts();
+ document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+function requestService(name){
+ alert('اخترت: '+name+'\nالطلبات والدفع غير مفعّلين بعد.');
+}
+function showInfo(name){
+ alert(name+'\nهذه الواجهة تحتاج ربط Firebase لتعمل فعليًا.');
+}
+</script>
+</body>
+</html>
