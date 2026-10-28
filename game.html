@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مطبخنا الليبي</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;min-height:100vh;color:#fff4d9;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(145deg,#321b13,#784126,#24140f);
+ text-align:center;padding:20px
+}
+header{padding:18px 0}
+h1{font-size:35px;color:#ffb52e;text-shadow:2px 3px #63240e}
+p{line-height:1.8}
+.panel{
+ max-width:480px;margin:18px auto;padding:22px;
+ background:#f6e5c5;color:#492b1c;
+ border:3px solid #c99b60;border-radius:24px;
+ box-shadow:0 8px 25px #160a0880
+}
+button{
+ display:block;width:100%;padding:15px;margin:12px 0;
+ border:2px solid #c69b67;border-radius:16px;
+ background:#fff8e9;color:#492b1c;
+ font-size:18px;font-weight:bold;cursor:pointer
+}
+button:active{transform:scale(.98)}
+.primary{background:#ed951e;color:#30180d}
+.dish{font-size:68px;margin:10px}
+#message{font-weight:bold;min-height:32px}
+.stats{display:flex;justify-content:space-around;font-weight:bold}
+footer{font-size:12px;color:#e7c5a0;margin:24px}
+</style>
+</head>
+<body>
+<header>
+ <div style="font-size:42px">🍲</div>
+ <h1>مطبخنا الليبي</h1>
+ <p>اختار أكلك الليبي المفضل واختبر معلوماتك!</p>
+</header>
+
+<div class="panel">
+ <div class="stats">
+  <span>⭐ النقاط: <b id="score">0</b></span>
+  <span>🍽️ السؤال: <b id="number">1</b></span>
+ </div>
+ <hr style="border-color:#d5b78d">
+ <div class="dish" id="dish">🍝</div>
+ <h2 id="question">شنو المكونات الأساسية للبازين؟</h2>
+ <div id="answers"></div>
+ <p id="message">اختار الإجابة الصحيحة!</p>
+ <button class="primary" id="next" onclick="nextQuestion()" hidden>السؤال التالي ←</button>
+ <button onclick="restart()">🔄 ابدأ من جديد</button>
+</div>
+
+<footer>مطبخنا الليبي © لعبة تجريبية مستقلة</footer>
+
+<script>
+const questions=[
+ {dish:"🥘",q:"شنو المكون الأساسي في البازين؟",
+ a:["الدقيق","الأرز","المعكرونة"],correct:0},
+ {dish:"🍝",q:"شنو الأكلة الليبية المعروفة باسم المبكبكة؟",
+ a:["الكسكسي","معكرونة بمرق في قدر واحد","العصيدة"],correct:1},
+ {dish:"🍲",q:"شنو الأكلة الليبية المصنوعة من السميد؟",
+ a:["البازين","البيتزا","الشوربة فقط"],correct:0},
+ {dish:"🥣",q:"شنو اسم الأكلة الليبية اللي تُحضّر غالبًا بالكسكسي؟",
+ a:["الكسكسي","الفطائر","الأرز بالحليب"],correct:0},
+ {dish:"🍵",q:"شنو المشروب الساخن المشهور في ليبيا؟",
+ a:["الشاي","العصير المثلج فقط","الماء البارد"],correct:0}
+];
+let index=0,score=0,answered=false;
+function showQuestion(){
+ const item=questions[index];
+ document.getElementById("dish").textContent=item.dish;
+ document.getElementById("question").textContent=item.q;
+ document.getElementById("number").textContent=index+1;
+ document.getElementById("score").textContent=score;
+ document.getElementById("message").textContent="اختار الإجابة الصحيحة!";
+ document.getElementById("next").hidden=true;
+ const area=document.getElementById("answers");
+ area.innerHTML="";
+ answered=false;
+ item.a.forEach((answer,i)=>{
+  const btn=document.createElement("button");
+  btn.textContent=answer;
+  btn.onclick=()=>checkAnswer(i,btn);
+  area.appendChild(btn);
+ });
+}
+function checkAnswer(choice,btn){
+ if(answered)return;
+ answered=true;
+ const item=questions[index];
+ const buttons=document.querySelectorAll("#answers button");
+ buttons.forEach(b=>b.disabled=true);
+ if(choice===item.correct){
+  score+=10;
+  btn.style.background="#b8d9a2";
+  document.getElementById("message").textContent="صح عليك! ⭐ +10 نقاط";
+ }else{
+  btn.style.background="#f0b0a0";
+  buttons[item.correct].style.background="#b8d9a2";
+  document.getElementById("message").textContent="مش صحيح، جرّب السؤال الجاي!";
+ }
+ document.getElementById("score").textContent=score;
+ document.getElementById("next").hidden=false;
+ document.getElementById("next").textContent=
+  index===questions.length-1?"عرض النتيجة 🏆":"السؤال التالي ←";
+}
+function nextQuestion(){
+ if(!answered)return;
+ if(index<questions.length-1){
+  index++;
+  showQuestion();
+ }else{
+  document.getElementById("dish").textContent="🏆";
+  document.getElementById("question").textContent="خلصت اللعبة!";
+  document.getElementById("answers").innerHTML=
+   "<h2>نتيجتك: "+score+" من "+questions.length*10+" نقطة</h2>";
+  document.getElementById("message").textContent="يعطيك الصحة على اللعب!";
+  document.getElementById("next").hidden=true;
+ }
+}
+function restart(){index=0;score=0;showQuestion()}
+showQuestion();
+</script>
+</body>
+</html>
